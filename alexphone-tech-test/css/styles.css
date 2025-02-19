@@ -1,0 +1,80 @@
+/* Tipografías */
+@font-face {
+    font-family: "Manrope-Bold";
+    src: url("../fonts/Manrope-Bold.ttf");
+}
+@font-face {
+    font-family: "Manrope-Light";
+    src: url("../fonts/Manrope-Light.ttf");
+}
+@font-face {
+    font-family: "Manrope-Regular";
+    src: url("../fonts/Manrope-Regular.ttf");
+}
+
+/* General */
+/* Reseteo de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+ul {
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+li {
+    list-style: none;
+}
+/* Cambio de color de selección de texto*/
+::selection {
+    background-color:#c3ced9;
+    color:#000;
+    text-shadow:none;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: "Manrope-Regular";
+}
+
+/* Main */
+main {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Header */
+header {
+    background-color: rgb(46 46 46);
+    padding: 20px 64px;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav .logo img {
+    width: 120px;
+}
+nav .carrito {
+    font-size: 22px;
+}
+nav .carrito img {
+    width: 100%;
+}
+
+/* Footer */
+footer {
+    background-color: #2196f3;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+}
