@@ -7,7 +7,7 @@ $carrito = $_SESSION['carrito'] ?? [];
     <head>
         <?php
             $url_entorno = '';
-            $page_title = 'AlexPhone - Agustín Massa';
+            $page_title = 'Carrito de compras';
             require $url_entorno.'partials/head.php';
         ?>
     </head>
@@ -16,9 +16,12 @@ $carrito = $_SESSION['carrito'] ?? [];
             require $url_entorno.'partials/header.php';
         ?>
         <main>
-            <h1>AlexPhone - Agustín Massa</h1>
-            <button class="agregar-carrito" data-id="1" data-cantidad="1">Agregar Producto 1</button>
-            <button class="agregar-carrito" data-id="2" data-cantidad="1">Agregar Producto 2</button>
+            <h1>Carrito de compras</h1>
+            <ul>
+                <?php foreach ($carrito as $producto_id => $cantidad): ?>
+                    <li>Producto ID: <?= $producto_id ?> - Cantidad: <?= $cantidad ?></li>
+                <?php endforeach; ?>
+            </ul>
         </main>
         <?php
             require $url_entorno.'partials/footer.php';

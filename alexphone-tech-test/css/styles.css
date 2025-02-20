@@ -45,29 +45,51 @@ body {
 /* Main */
 main {
     height: 100vh;
+    padding: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 /* Header */
 header {
-    background-color: rgb(46 46 46);
+    background-color: rgb(46, 46, 46);
     padding: 20px 64px;
 }
-nav {
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-nav .logo img {
+.navbar .logo img {
     width: 120px;
 }
-nav .carrito {
-    font-size: 22px;
+.navbar .carrito img {
+    width: 22px; 
 }
-nav .carrito img {
-    width: 100%;
+.carrito {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.carrito img {
+    width: 22px;
+}
+#contador-carrito {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background-color: #2196f3;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Footer */
