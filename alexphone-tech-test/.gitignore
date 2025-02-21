@@ -1,0 +1,16 @@
+# Ignorar la carpeta vendor que contiene las dependencias de Composer
+/vendor/
+
+# Ignorar los archivos de configuración de IDE y editores
+.vscode/
+.idea/
+
+# Ignorar archivos específicos del sistema operativo
+Thumbs.db       # Windows
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar archivos temporales o de caché
+*.tmp
+*.swp

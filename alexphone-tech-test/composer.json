@@ -1,0 +1,17 @@
+{
+    "name": "agustin/alexphone-tech-test",
+    "autoload": {
+        "psr-4": {
+            "Agustin\\AlexphoneTechTest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "AgustínCMM",
+            "email": "agus.massa96@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.11"
+    }
+}
