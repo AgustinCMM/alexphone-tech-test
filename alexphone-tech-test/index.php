@@ -15,10 +15,12 @@ $carrito = $_SESSION['carrito'] ?? [];
         <?php
             require $url_entorno . 'partials/header.php';
         ?>
-        <main>
+        <main id="index">
             <h1>AlexPhone - Agustín Massa</h1>
-            <button class="agregar-carrito" data-id="1" data-cantidad="1">Agregar Producto 1</button>
-            <button class="agregar-carrito" data-id="2" data-cantidad="1">Agregar Producto 2</button>
+            <section class="productos">
+                <button class="agregar-carrito" data-id="1" data-cantidad="1">Agregar Producto 1</button>
+                <button class="agregar-carrito" data-id="2" data-cantidad="1">Agregar Producto 2</button>
+            </section>
         </main>
         <?php
             require $url_entorno . 'partials/footer.php';

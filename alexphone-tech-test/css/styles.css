@@ -12,7 +12,7 @@
     src: url("../fonts/Manrope-Regular.ttf");
 }
 
-/* General */
+/* GENERAL */
 /* Reseteo de estilos */
 * {
     margin: 0;
@@ -40,16 +40,6 @@ html {
 }
 body {
     font-family: "Manrope-Regular";
-}
-
-/* Main */
-main {
-    height: 100vh;
-    padding: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
 }
 
 /* Header */
@@ -92,6 +82,21 @@ header {
     align-items: center;
 }
 
+/* Main */
+main {
+    height: 100vh;
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+main h1 {
+    margin-bottom: 20px;
+    font-family: "Manrope-Bold";
+    font-size: 32px;
+}
+
 /* Footer */
 footer {
     background-color: #2196f3;
@@ -99,4 +104,63 @@ footer {
     text-align: center;
     padding: 10px 0;
     font-size: 14px;
+}
+
+/* INDEX */
+#index .productos {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+#index .productos button {
+    margin-bottom: 10px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+/* CARRITO DE COMPRAS */
+#carrito ul {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+#carrito li {
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "Manrope-Light";
+    font-size: 16px;
+}
+#carrito li:hover {
+    background-color: #eee;
+}
+#carrito li span {
+    font-family: "Manrope-Bold";
+}
+#carrito button {
+    color: #fff;
+    background-color: #2196f3;
+    padding: 5px 12px;
+    font-family: "Manrope-Bold";
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#carrito button:hover {
+    background-color: #0287f3;
+}
+#carrito button.btn-eliminar {
+    background-color: #f32121;
+    margin-left: 10px;
+}
+#carrito button.btn-eliminar:hover {
+    background-color: #f10000;
 }

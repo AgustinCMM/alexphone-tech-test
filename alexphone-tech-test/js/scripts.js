@@ -30,3 +30,37 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const actualizarCarrito = (data) => {
+        document.getElementById("contador-carrito").textContent = data.total;
+        document.getElementById("contador-carrito").style.display = data.total > 0 ? "flex" : "none";
+    };
+
+    const manejarCambioCarrito = (productoId, accion) => {
+        fetch(`carrito/${accion}.php`, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `producto_id=${productoId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            actualizarCarrito(data);
+            location.reload(); // Recargar para actualizar la lista del carrito
+        })
+        .catch(error => console.error("Error:", error));
+    };
+
+    document.querySelectorAll(".btn-aumentar").forEach(btn => {
+        btn.addEventListener("click", () => manejarCambioCarrito(btn.dataset.id, "aumentar"));
+    });
+
+    document.querySelectorAll(".btn-disminuir").forEach(btn => {
+        btn.addEventListener("click", () => manejarCambioCarrito(btn.dataset.id, "disminuir"));
+    });
+
+    document.querySelectorAll(".btn-eliminar").forEach(btn => {
+        btn.addEventListener("click", () => manejarCambioCarrito(btn.dataset.id, "eliminar"));
+    });
+});
+
