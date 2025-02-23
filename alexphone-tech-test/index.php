@@ -10,10 +10,13 @@
 <body>
     <?php require $url_entorno . 'partials/header.php'; // Incluye el header con el logo y el carrito. ?>
 
+    <!-- Mensaje de éxito cuando se añade al carrito -->
+    <div id="mensaje-exito" class="mensaje-exito" style="display: none;"></div>
+
     <main id="index">
         <h1>AlexPhone - Agustín Massa</h1>
 
-        <!-- BLOQUE DE FILTROS Y ORDENADO -->
+        <!-- Bloque de filtros -->
         <div id="filtros">
             <label for="filtro-color">Color:</label>
             <select id="filtro-color">
@@ -36,9 +39,9 @@
             <label for="filtro-grade">Estado:</label>
             <select id="filtro-grade">
                 <option value="">Todos</option>
-                <option value="excellent">Excellent</option>
-                <option value="very_good">Very Good</option>
-                <option value="good">Good</option>
+                <option value="excellent">Excelente</option>
+                <option value="very_good">Muy bueno</option>
+                <option value="good">Satisfactorio</option>
             </select>
 
             <label for="orden-precio">Ordenar por:</label>
@@ -48,7 +51,7 @@
                 <option value="desc">Precio Desc</option>
             </select>
         </div>
-        <!-- FIN BLOQUE DE FILTROS Y ORDENADO -->
+        <!-- Fin bloque de filtros -->
 
         <section class="productos" id="productos">
             <!-- Aquí se mostrarán los productos -->
