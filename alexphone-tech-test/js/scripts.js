@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //                               FUNCIONES UTILES
     // =================================================================================
 
-    // mapea el color al hex
+    // mapea el color al hex (sólo para mostrarlo en pantalla)
     function getColorHex(colorName) {
         switch (colorName) {
             case 'white': return '#FAFAF9';
@@ -39,7 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
             default:      return '#333';
         }
     }
-    // mapea el grade en inglés a español
+
+    // mapea el grade en inglés a español (sólo para mostrarlo en pantalla)
     function getGradeText(grade) {
         switch (grade) {
             case 'excellent': return 'Excelente';
@@ -48,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
             default:          return grade;
         }
     }
-    // mapea el color en inglés a texto en español
+
+    // mapea el color en inglés a texto en español (sólo para mostrarlo en pantalla)
     function getColorText(colorName) {
         switch (colorName) {
             case 'white': return 'Blanco';
@@ -58,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
             default:      return colorName; 
         }
     }
+
     // muestra un mensaje de éxito, se oculta tras 2s
     function mostrarMensajeExito(mensaje) {
         const mensajeExito = document.getElementById("mensaje-exito");
@@ -77,14 +80,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // =================================================================================
-    //                             FILTROS Y ORDEN
+    //                             FILTROS Y ORDEN (INDEX)
     // =================================================================================
 
-    let productosGlobal = []; // para almacenar productos sin filtrar
+    let productosGlobal = []; // Almacena todos los productos sin filtrar
 
     // lee la URL para setear los filtros
     function inicializarFiltrosDesdeURL() {
         const params = new URLSearchParams(window.location.search);
+
         const filtroColor = document.getElementById('filtro-color');
         const filtroCapacidad = document.getElementById('filtro-capacidad');
         const filtroGrade = document.getElementById('filtro-grade');
@@ -113,9 +117,10 @@ document.addEventListener("DOMContentLoaded", function () {
         window.history.replaceState({}, '', newUrl);
     }
 
-    // aplica filtros y orden a productosGlobal, y renderiza
+    // Aplica filtros y orden a productosGlobal, y renderiza
     function aplicarFiltrosYOrden() {
         if (!productosGlobal.length) return;
+
         const params = new URLSearchParams(window.location.search);
         const color = params.get('color') || '';
         const capacity = params.get('capacity') || '';
@@ -137,11 +142,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const contenedorProductos = document.getElementById('productos');
         if (!contenedorProductos) return;
-        let productosHTML = "";
 
+        let productosHTML = "";
         listaFiltrada.forEach(producto => {
+            // Mostramos color y grade en pantalla con funciones de “traducción,” 
+            // pero guardamos los valores originales en data-*
             const colorCircle = `<span class="color-circle" style="background-color: ${getColorHex(producto.color)};"></span>`;
             const gradeEsp = getGradeText(producto.grade);
+
             productosHTML += `
                 <div class="producto">
                     <a href="detalle.php?sku=${producto.sku}">
@@ -152,14 +160,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p>Color: ${colorCircle}</p>
                     <p>Capacidad: ${producto.storage}GB</p>
                     <p>Estado: ${gradeEsp}</p>
+
                     <button class="agregar-carrito"
-                            data-id="${producto.id}"
-                            data-sku="${producto.sku}"
-                            data-name="${producto.name}"
-                            data-price="${producto.price}"
-                            data-image="${producto.image}"
-                            data-color="${producto.color}"
-                            data-storage="${producto.storage}">
+                        data-id="${producto.id}"
+                        data-sku="${producto.sku}"
+                        data-name="${producto.name}"
+                        data-price="${producto.price}"
+                        data-image="${producto.image}"
+                        data-color="${producto.color}"
+                        data-storage="${producto.storage}"
+                        data-grade="${producto.grade}">
                         Añadir al carrito
                     </button>
                 </div>
@@ -170,14 +180,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.querySelectorAll(".agregar-carrito").forEach(button => {
             button.addEventListener("click", (e) => {
-                const { id, sku, name, price, image, color, storage } = e.target.dataset;
-                agregarAlCarrito(id, sku, name, parseFloat(price), image, color, storage);
+                const { id, sku, name, price, image, color, storage, grade } = e.target.dataset;
+                agregarAlCarrito(id, sku, name, parseFloat(price), image, color, storage, grade);
                 mostrarMensajeExito("Producto añadido al carrito");
             });
         });
     }
 
-    // asigna eventos a los filtros
+    // Asigna eventos a los selects de filtros
     function asignarEventosFiltros() {
         const filtroColor = document.getElementById('filtro-color');
         const filtroCapacidad = document.getElementById('filtro-capacidad');
@@ -185,6 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const ordenPrecio = document.getElementById('orden-precio');
 
         if (!filtroColor || !filtroCapacidad || !filtroGrade || !ordenPrecio) return;
+
         [filtroColor, filtroCapacidad, filtroGrade, ordenPrecio].forEach(el => {
             el.addEventListener('change', () => {
                 actualizarURL();
@@ -193,15 +204,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // renderiza la lista de productos (index.php)
+    // Renderiza la lista de productos en index.php
     function mostrarProductos(productos) {
         productosGlobal = productos;
+
+        // Si existe el contenedor de filtros => inicializamos y aplicamos
         if (document.getElementById('filtros')) {
             inicializarFiltrosDesdeURL();
             asignarEventosFiltros();
             aplicarFiltrosYOrden();
         } else {
-            // sin filtros
+            // Sin filtros, sólo renderizamos
             const contenedorProductos = document.getElementById('productos');
             if (!contenedorProductos) return;
 
@@ -209,6 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
             productos.forEach(producto => {
                 const colorCircle = `<span class="color-circle" style="background-color: ${getColorHex(producto.color)};"></span>`;
                 const gradeEsp = getGradeText(producto.grade);
+
                 productosHTML += `
                     <div class="producto">
                         <a href="detalle.php?sku=${producto.sku}">
@@ -219,25 +233,28 @@ document.addEventListener("DOMContentLoaded", function () {
                         <p>Color: ${colorCircle}</p>
                         <p>Capacidad: ${producto.storage}GB</p>
                         <p>Estado: ${gradeEsp}</p>
+
                         <button class="agregar-carrito"
-                                data-id="${producto.id}"
-                                data-sku="${producto.sku}"
-                                data-name="${producto.name}"
-                                data-price="${producto.price}"
-                                data-image="${producto.image}"
-                                data-color="${producto.color}"
-                                data-storage="${producto.storage}">
+                            data-id="${producto.id}"
+                            data-sku="${producto.sku}"
+                            data-name="${producto.name}"
+                            data-price="${producto.price}"
+                            data-image="${producto.image}"
+                            data-color="${producto.color}"
+                            data-storage="${producto.storage}"
+                            data-grade="${producto.grade}">
                             Añadir al carrito
                         </button>
                     </div>
                 `;
             });
+
             contenedorProductos.innerHTML = productosHTML;
 
             document.querySelectorAll(".agregar-carrito").forEach(button => {
                 button.addEventListener("click", (e) => {
-                    const { id, sku, name, price, image, color, storage } = e.target.dataset;
-                    agregarAlCarrito(id, sku, name, parseFloat(price), image, color, storage);
+                    const { id, sku, name, price, image, color, storage, grade } = e.target.dataset;
+                    agregarAlCarrito(id, sku, name, parseFloat(price), image, color, storage, grade);
                     mostrarMensajeExito("Producto añadido al carrito");
                 });
             });
@@ -248,7 +265,6 @@ document.addEventListener("DOMContentLoaded", function () {
     //                           DETALLE (detalle.php)
     // =================================================================================
 
-    // obtiene la SKU de la URL y hace fetch al endpoint de detalle
     function mostrarDetalle() {
         const params = new URLSearchParams(window.location.search);
         const sku = params.get('sku');
@@ -267,7 +283,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(err => console.error("Error fetch detalle:", err));
     }
 
-    // mapea la info del producto en 2 columnas (imagen izq, info der)
     function renderizarDetalle(producto) {
         const contenedor = document.getElementById('detalle-producto');
         if (!contenedor) return;
@@ -277,7 +292,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let subtitulo = `${producto.storage} GB / ${colorEsp} / ${gradeEsp}`;
         let colorCircle = `<span class="color-circle" style="background-color: ${getColorHex(producto.color)};"></span>`;
 
-        // Cabecera
         contenedor.innerHTML = `
             <div class="detalle-columna detalle-imagen">
                 <img src="${producto.image}" alt="${producto.name}">
@@ -296,13 +310,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p><strong>Descripción:</strong> ${producto.description}</p>
 
                 <button class="agregar-carrito-detalle"
-                        data-id="${producto.id}"
-                        data-sku="${producto.sku}"
-                        data-name="${producto.name}"
-                        data-price="${producto.price}"
-                        data-image="${producto.image}"
-                        data-color="${producto.color}"
-                        data-storage="${producto.storage}">
+                    data-id="${producto.id}"
+                    data-sku="${producto.sku}"
+                    data-name="${producto.name}"
+                    data-price="${producto.price}"
+                    data-image="${producto.image}"
+                    data-color="${producto.color}"
+                    data-storage="${producto.storage}"
+                    data-grade="${producto.grade}">
                     Añadir al carrito
                 </button>
             </div>
@@ -311,8 +326,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let btnCarritoDetalle = document.querySelector(".agregar-carrito-detalle");
         if (btnCarritoDetalle) {
             btnCarritoDetalle.addEventListener("click", e => {
-                const { id, sku, name, price, image, color, storage } = e.target.dataset;
-                agregarAlCarrito(id, sku, name, parseFloat(price), image, color, storage);
+                const { id, sku, name, price, image, color, storage, grade } = e.target.dataset;
+                agregarAlCarrito(id, sku, name, parseFloat(price), image, color, storage, grade);
                 mostrarMensajeExito("Producto añadido al carrito");
             });
         }
@@ -322,21 +337,20 @@ document.addEventListener("DOMContentLoaded", function () {
     //                   RESTO DE FUNCIONES DEL CARRITO
     // =================================================================================
 
-    // agrega un producto al carrito
-    function agregarAlCarrito(id, sku, name, price, image, color, storage) {
+    function agregarAlCarrito(id, sku, name, price, image, color, storage, grade) {
         const carrito = obtenerCarrito();
         const index = carrito.findIndex(item => item.sku === sku && item.color === color && item.storage === storage);
 
         if (index !== -1) {
             carrito[index].cantidad += 1;
         } else {
-            carrito.push({ id, sku, name, price, image, color, storage, cantidad: 1 });
+            // Se guardan los valores originales (incluyendo grade)
+            carrito.push({ id, sku, name, price, image, color, storage, grade, cantidad: 1 });
         }
         localStorage.setItem("carrito", JSON.stringify(carrito));
         actualizarCarrito();
     }
 
-    // muestra en carrito.php los productos que hay, con sus cantidades y total
     function mostrarCarrito() {
         const carrito = obtenerCarrito();
         const listaCarrito = document.getElementById("lista-carrito");
@@ -374,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
                 <div class="buttons">
-                    <!-- Aquí multiplicamos directamente price x cantidad -->
+                    <!-- total = price * cantidad -->
                     <span class="precio">€${producto.price * producto.cantidad}</span>
                     <button class="btn-disminuir" data-sku="${producto.sku}" data-color="${producto.color}" data-storage="${producto.storage}">-</button>
                     <span class="cantidad">${producto.cantidad}</span>
@@ -383,13 +397,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
             fragment.appendChild(li);
-        });        
+        });
         listaCarrito.appendChild(fragment);
 
         let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.price) * producto.cantidad, 0);
         totalCarrito.textContent = total;
 
-        // eventos aumentar, disminuir, eliminar
+        // Botones para cambiar cantidades/eliminar
         document.querySelectorAll(".btn-aumentar").forEach(button => {
             button.addEventListener("click", e => {
                 const { sku, color, storage } = e.target.dataset;
@@ -408,12 +422,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 eliminarProducto(sku, color, storage);
             });
         });
+
+        // En vez de confirmar la compra aquí, redirigimos a checkout.php
+        if (botonComprar) {
+            botonComprar.removeEventListener("click", goCheckout);
+            botonComprar.addEventListener("click", goCheckout);
+        }
     }
 
-    // cambia la cantidad de un producto
+    // Simplemente redirige a checkout.php
+    function goCheckout() {
+        window.location.href = "checkout.php";
+    }
+
     function cambiarCantidad(sku, color, storage, cantidad) {
         const carrito = obtenerCarrito();
         const index = carrito.findIndex(item => item.sku === sku && item.color === color && item.storage === storage);
+
         if (index !== -1) {
             carrito[index].cantidad += cantidad;
             if (carrito[index].cantidad <= 0) {
@@ -425,10 +450,10 @@ document.addEventListener("DOMContentLoaded", function () {
         actualizarCarrito();
     }
 
-    // elimina un producto del carrito
     function eliminarProducto(sku, color, storage) {
         const carrito = obtenerCarrito();
         const index = carrito.findIndex(item => item.sku === sku && item.color === color && item.storage === storage);
+
         if (index !== -1) {
             carrito.splice(index, 1);
         }
@@ -438,20 +463,106 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // =================================================================================
+    //                     LÓGICA DE CONFIRMACIÓN EN checkout.php
+    // =================================================================================
+
+    function realizarCheckout() {
+        const carrito = obtenerCarrito();
+        const resultadoDiv = document.getElementById("checkout-resultado");
+    
+        if (!carrito.length) {
+            if (resultadoDiv) {
+                resultadoDiv.innerHTML = "<p>No hay productos enviados desde el carrito.</p>";
+            }
+            console.log("No hay productos enviados desde el carrito.");
+            return;
+        }
+    
+        // Construimos el body EXACTO que será enviado
+        const skusParaEnviar = carrito.map(item => ({
+            id: item.id,
+            sku: item.sku,
+            grade: item.grade,
+            color: item.color,
+            storage: Number(item.storage),
+        }));
+    
+        const body = { skus: skusParaEnviar };
+        
+        // Para mostrar en consola y pantalla lo que se envía
+        const bodyString = JSON.stringify(body, null, 2);  // formateado con 2 espacios
+        
+        // (Opcional) Lo mostramos en consola antes de hacer el fetch
+        console.log("Enviando al servidor:", bodyString);
+    
+        // PUT a la API
+        fetch("https://test.alexphone.com/api/v1/order", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: bodyString
+        })
+        .then(resp => {
+            if (!resp.ok) {
+                throw new Error(`Error en la confirmación (status ${resp.status})`);
+            }
+            return resp.text(); 
+        })
+        .then(textoRespuesta => {
+            // Éxito: vaciar carrito, mostrar en pantalla
+            localStorage.removeItem("carrito");
+            actualizarCarrito();
+    
+            console.log("Confirmación exitosa:", textoRespuesta);
+            
+            if (resultadoDiv) {
+                resultadoDiv.innerHTML = `
+                    <p>¡Pedido confirmado con éxito!</p>
+                    <p>Mensaje enviado al servidor:</p>
+                    <pre>${bodyString}</pre>
+                    <br/>
+                    <p>Respuesta del servidor:</p>
+                    <pre>${textoRespuesta || "(Sin contenido en la respuesta)"}</pre>
+                `;
+            }
+        })
+        .catch(err => {
+            console.error("Error confirmando pedido:", err);
+            if (resultadoDiv) {
+                resultadoDiv.innerHTML = `
+                    <p style="color:red;">Hubo un problema al confirmar tu pedido.</p>
+                    <p>Detalle: ${err.message}</p>
+                `;
+            }
+        });
+    }
+    
+
+    // =================================================================================
     //                         INICIALIZACIÓN DE LA PÁGINA
     // =================================================================================
+
     if (document.getElementById("productos")) {
         fetch("https://test.alexphone.com/api/v1/skus")
             .then(response => response.json())
             .then(productos => { mostrarProductos(productos); })
             .catch(error => console.error("Error al obtener productos:", error));
     }
+
     if (document.getElementById("lista-carrito")) {
         mostrarCarrito();
     }
+
     if (document.getElementById("detalle-producto")) {
         mostrarDetalle();
     }
+
+    // Si estamos en checkout.php => se dispara realizarCheckout
+    if (document.getElementById("checkout")) {
+        realizarCheckout();
+    }
+
     actualizarCarrito();
     window.addEventListener("storage", actualizarCarrito);
 });

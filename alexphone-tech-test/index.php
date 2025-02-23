@@ -54,7 +54,7 @@
         <!-- Fin bloque de filtros -->
 
         <section class="productos" id="productos">
-            <!-- Aquí se mostrarán los productos -->
+            <!-- Aquí se mostrarán los productos obtenidos de la API -->
         </section>
     </main>
 

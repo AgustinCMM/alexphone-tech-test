@@ -96,6 +96,7 @@ main h1 {
     margin-bottom: 20px;
     font-family: "Manrope-Bold";
     font-size: 32px;
+    text-align: center;
 }
 
 /* Footer */
@@ -454,4 +455,141 @@ footer {
 #btn-productos:active,
 #btn-comprar:active {
     background-color: #0277c3;
+}
+
+/* CHECKOUT */
+#checkout-resultado {
+    background-color: #fff;
+    width: 100%;
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+#checkout-resultado p {
+    font-family: 'Manrope-Bold';
+    font-size: 20px;
+    text-align: center;
+}
+
+/* ========================================================================== */
+/* Media Queries para responsividad en dispositivos móviles                   */
+/* ========================================================================== */
+@media (max-width: 768px) {
+    /* GENERAL */
+    header {
+        padding: 10px 20px;
+    }
+    .navbar .logo img {
+        width: 90px;
+    }
+    .carrito img {
+        width: 18px;
+    }
+
+    /* MAIN */
+    main {
+        padding: 20px;
+    }
+    main h1 {
+        font-size: 24px;
+    }
+
+    /* INDEX */
+    #index .productos {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px 10px;
+    }
+    #index .producto {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    #index .producto h3 {
+        font-size: 16px;
+    }
+    #index .producto p {
+        font-size: 13px;
+    }
+    #index .producto button.agregar-carrito {
+        font-size: 13px;
+        padding: 6px 15px;
+    }
+
+    /* DETALLE */
+    #detalle-producto {
+        flex-direction: column; 
+        padding: 20px;
+    }
+    .detalle-columna {
+        width: 100% !important;
+        padding: 10px;
+    }
+    .detalle-imagen {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    .detalle-imagen img {
+        max-width: 250px;
+    }
+    .detalle-header .price {
+        font-size: 28px;
+    }
+    .detalle-info h2 {
+        font-size: 28px;
+    }
+    .detalle-info p {
+        font-size: 14px;
+    }
+
+    /* CARRITO DE COMPRAS */
+    #carrito ul {
+        gap: 10px; 
+    }
+    #carrito li {
+        flex-direction: column;
+        align-items: center;
+    }
+    #carrito li img {
+        margin-bottom: 10px;
+    }
+    #carrito li div {
+        gap: 10px;
+    }
+    #carrito li div div:nth-child(2) {
+        margin-bottom: 10px;
+    }
+    #carrito li div.buttons {
+        justify-content: flex-start;
+    }
+    #carrito li div h3 {
+        font-size: 20px;
+    }
+    #carrito li div button {
+        font-size: 14px;
+        padding: 4px 10px;
+    }
+
+    /* CHECKOUT */
+    #checkout-resultado {
+        padding: 20px;
+    }
+    #checkout-resultado p {
+        font-size: 16px;
+    }
+
+    /* Ajustes generales para botones */
+    #btn-productos,
+    #btn-comprar {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    /* Ajustes para el mensaje de éxito */
+    .mensaje-exito {
+        font-size: 14px;
+        padding: 10px 15px;
+        top: 10px; 
+    }
 }
