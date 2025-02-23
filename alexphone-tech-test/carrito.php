@@ -14,6 +14,7 @@
         <h1>Carrito de compras</h1>
 
         <div id="mensaje-carrito">
+            <!-- Mensaje de carrito vacío -->
             <p>Ops, tu cesta aún está vacía</p>
             <a href="<?php echo $url_entorno; ?>index.php">
                 <button id="btn-productos">Descubre nuestros productos</button>
@@ -32,7 +33,6 @@
         <button id="btn-comprar" style="display: none;">Comprar</button>
     </main>
 
-    <?php require $url_entorno . 'partials/footer.php'; // Incluye el pie de página. ?>
-
+    <?php require $url_entorno . 'partials/footer.php'; ?>
 </body>
 </html>
