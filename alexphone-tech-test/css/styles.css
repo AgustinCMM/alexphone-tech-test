@@ -84,7 +84,8 @@ header {
 
 /* Main */
 main {
-    height: 100vh;
+    background-color: #f1f1f1;
+    min-height: 100vh;
     padding: 50px;
     display: flex;
     align-items: center;
@@ -109,42 +110,111 @@ footer {
 /* INDEX */
 #index .productos {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px 10px;
+    justify-items: center;
 }
-#index .productos button {
+#index .producto {
+    background-color: #fff;
+    width: 100%;
+    max-width: 250px;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+#index .producto:hover {
+    transform: scale(1.02);
+}
+#index .producto img {
+    width: 100%;
+    height: auto;
     margin-bottom: 10px;
-    padding: 5px 15px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+#index .producto h3 {
+    margin-bottom: 10px;
+    font-family: "Manrope-Bold";
+    font-size: 18px;
+}
+#index .producto p {
+    color: #666;
+    margin-bottom: 10px;
+    font-family: "Manrope-Regular";
+    font-size: 14px;
+}
+#index .producto button.agregar-carrito {
+    color: #fff;
+    background-color: #2196f3;
+    padding: 8px 20px;
+    font-family: "Manrope-Bold";
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#index .producto button.agregar-carrito:hover {
+    background-color: #0287f3;
+}
+#index .producto button.agregar-carrito:active {
+    background-color: #0277c3;
 }
 
 /* CARRITO DE COMPRAS */
 #carrito ul {
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
 }
 #carrito li {
     width: 100%;
-    margin-bottom: 5px;
-    padding: 5px;
+    padding: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: "Manrope-Light";
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    gap: 20px;
+}
+#carrito li img {
+    width: 100px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+#carrito li div {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+#carrito li div div:nth-child(2) {
+    flex-direction: column;
+}
+#carrito li div.buttons {
+    align-items: center;
+}
+#carrito li div h3,
+#carrito li div span {
+    color: #000;
+    font-family: "Manrope-Bold";
     font-size: 16px;
 }
-#carrito li:hover {
-    background-color: #eee;
+#carrito li div p {
+    font-family: "Manrope-Regular";
+    font-size: 14px;
 }
-#carrito li span {
-    font-family: "Manrope-Bold";
+#carrito li div p {
+    color: #666;
 }
-#carrito button {
+#carrito li div button {
     color: #fff;
     background-color: #2196f3;
     padding: 5px 12px;
@@ -153,14 +223,80 @@ footer {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-#carrito button:hover {
+#carrito li div button:hover {
     background-color: #0287f3;
 }
-#carrito button.btn-eliminar {
-    background-color: #f32121;
-    margin-left: 10px;
+#carrito li div button.btn-eliminar {
+    background-color: transparent;
+    background-image: url('../img/trash-simple.svg');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    opacity: 0.7;
 }
-#carrito button.btn-eliminar:hover {
-    background-color: #f10000;
+#carrito li div button.btn-eliminar:hover {
+    opacity: 1;
+}
+#mensaje-carrito {
+    color: #000;
+    background-color: #fff;
+    width: 100%;
+    height: 70vh;
+    padding: 50px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-family: "Manrope-Bold";
+    font-size: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+#total-carrito {
+    color: #000;
+    background-color: #fff;
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    font-family: "Manrope-Light";
+    font-size: 24px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+#total-carrito span {
+    font-family: "Manrope-Bold";
+}
+#btn-productos,
+#btn-comprar {
+    color: #fff;
+    background-color: #2196f3;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-family: "Manrope-Bold";
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#btn-comprar {
+    font-size: 24px;
+    display: none;
+}
+#btn-productos:hover,
+#btn-comprar:hover {
+    background-color: #0287f3;
+}
+#btn-productos:active,
+#btn-comprar:active {
+    background-color: #0277c3;
 }
